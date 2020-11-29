@@ -94,3 +94,4 @@ docker-compose.yml
 # should these be in git?
 chart/djankiserv/charts/*.tgz
 build/*
+deploy/conf/traefik/acme.json
