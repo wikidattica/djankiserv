@@ -28,6 +28,7 @@ INSTALLED_APPS = [
     "django_k8s",  # allows for a more elegant init-container to check for migrations and db availability
     # local
     "djankiserv.apps.DjankiservConfig",
+    "django_extensions",
 ]
 
 MIDDLEWARE = [
