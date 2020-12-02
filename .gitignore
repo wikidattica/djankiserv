@@ -89,7 +89,6 @@ local_settings.py
 db.sqlite3
 /static/
 /tmp/
-docker-compose.yml
 .local_setup.sh
 # should these be in git?
 chart/djankiserv/charts/*.tgz
