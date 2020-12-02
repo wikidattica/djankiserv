@@ -22,7 +22,9 @@ Icon
 Network Trash Folder
 Temporary Items
 .apdisk
-
+*~
+src/data
+deploy/data
 
 ### Python ###
 # Byte-compiled / optimized / DLL files
