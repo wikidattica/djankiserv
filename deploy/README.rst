@@ -103,12 +103,14 @@ The easiest way
 
 * All these setups end with using django and postgresql
 
-* All different setup share what follows::
+* All different setups share what follows::
 
     git clone https://github.com/wikidattica/djankiserv
     cd djankiserve
     git checkout docker-compose
     docker-compose ... (see below)
+    docker-compose exec django python manage.py migrate
+    docker-compose exec django python manage.py createsuperuser
 
 * configuration is made via environment variable that will be read from `.env` if
   you like. Chapter Environment below explains it
@@ -127,14 +129,14 @@ paste this block::
   DJANKISERV_MAINDB_NAME=djankiserv
   DJANKISERV_MAINDB_USER=anki
   DJANKISERV_MAINDB_PASSWORD=<your-pwd>
-  DJANKISERV_MAINDB_HOST=127.0.0.1
+  DJANKISERV_MAINDB_HOST=postgresql
   DJANKISERV_MAINDB_PORT=5432
 
   DJANKISERV_USERDB_ENGINE=django.db.backends.postgresql
   DJANKISERV_USERDB_NAME=djankiserv_user
   DJANKISERV_USERDB_USER=anki
   DJANKISERV_USERDB_PASSWORD=<your-pwd>
-  DJANKISERV_USERDB_HOST=127.0.0.1
+  DJANKISERV_USERDB_HOST=postgresql
 
   DJANKISERV_DEBUG=True
   DJANKISERV_DATA_ROOT=/code/data
@@ -170,9 +172,9 @@ on your desktop
     # good for ankidroid as well (https link)
 
 
-* ``mitmproxy + nginx``::
+* ``mitmweb + nginx``::
 
-    docker-compose up -d mitmproxy nginx
+    docker-compose up -d mitmweb nginx
     # set in /etc/hosts:   127.0.0.1 djankiserv
     # export http_proxy=http://127.0.0.1:8080
     # set in anki http://djankiserv/djs
