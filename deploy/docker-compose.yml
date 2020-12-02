@@ -52,6 +52,7 @@ services:
     image:  postgres:13.1
     restart: unless-stopped
     environment:
+      - POSTGRES_USER
       - POSTGRES_PASSWORD
       - DJANKISERV_MAINDB_NAME
       - DJANKISERV_MAINDB_USER

@@ -127,7 +127,7 @@ paste this block::
   cat <<-EOF > .env
   DJANKISERV_MAINDB_ENGINE=django.db.backends.postgresql
   DJANKISERV_MAINDB_NAME=djankiserv
-  DJANKISERV_MAINDB_USER=anki
+  DJANKISERV_MAINDB_USER=djanki
   DJANKISERV_MAINDB_PASSWORD=<your-pwd>
   DJANKISERV_MAINDB_HOST=postgresql
   DJANKISERV_MAINDB_PORT=5432
@@ -159,6 +159,8 @@ paste this block::
 
 if you don't have setfacl and used debian like: ``apt install acl``
 
+Note: Plase use 2 different user for the 2 different db or change the sql
+initialization scripts (djanki  and anki is ok!)
 
 on your desktop
 ................
