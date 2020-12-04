@@ -40,6 +40,7 @@ services:
        traefik.http.routers.dj.rule: Host(`${DJANKISERV_HOST}`)
        traefik.http.routers.dj.entrypoints: web
        traefik.http.routers.dj.service: djs
+       traefik.http.routers.dj.middlewares: do-buffering
 
        traefik.http.routers.djs.rule: Host(`${DJANKISERV_HOST}`)
        traefik.http.routers.djs.entrypoints: web-secured
@@ -47,6 +48,7 @@ services:
        traefik.http.routers.djs.service: djs
 
        traefik.http.services.djs.loadbalancer.server.port: 8000
+       traefik.http.middlewares.do-buffering.buffering.memRequestBodyBytes: 20000000
 
   postgresql:
     image:  postgres:13.1
@@ -72,9 +74,27 @@ services:
     ports:
       - "8080:8080"  # proxy
       - "8081:8081"  # web-interface
-    command: mitmweb --web-host 0.0.0.0 --no-web-open-browser
+    command: mitmweb --web-host 0.0.0.0 --no-web-open-browser -p 8080 --mode reverse:http://django:8000/
+    #command: mitmweb --web-host 0.0.0.0 --no-web-open-browser -p 8080 --mode reverse:http://djankiserv/
     networks:
       - django
+
+    # labels:
+    #    traefik.enable: true
+    #    traefik.http.routers.mitm.rule: Host(`${DJANKISERV_HOST}`)
+    #    traefik.http.routers.mitm.priority: 10
+    #    traefik.http.routers.mitm.entrypoints: web
+    #    traefik.http.routers.mitm.service: mitms
+    #    traefik.http.routers.mitm.middlewares: do-buffering
+
+    #    traefik.http.routers.mitms.rule: Host(`${DJANKISERV_HOST}`)
+    #    traefik.http.routers.mitms.entrypoints: web-secured
+    #    traefik.http.routers.mitms.tls.certresolver: leresolver
+    #    traefik.http.routers.mitms.service: mitms
+    #    traefik.http.routers.mitms.middlewares: do-buffering
+
+    #    traefik.http.services.mitms.loadbalancer.server.port: 8080
+    #    traefik.http.middlewares.do-buffering.buffering.memRequestBodyBytes: 20000000
 
   nginx:
     ## just needed to allow transfer-encoding: chuncked (needed by anki's /upload)
